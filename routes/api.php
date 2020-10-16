@@ -24,7 +24,6 @@ Route::post('login', 'Auth\AuthController@login');
 // you must be authenticated to use the upcoming requests
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'Auth\AuthController@logout');
-    Route::get('user', 'Auth\AuthController@getUser');
     Route::get('departments', 'Departments\DepartmentController@index');
     Route::get('departments/{department}', 'Departments\DepartmentController@show');
     Route::post('departments', 'Departments\DepartmentController@store');

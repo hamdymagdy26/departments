@@ -4,8 +4,8 @@ namespace App\Repositories\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Collection;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
+use Auth;
 
 class AuthRepository implements AuthRepositoryInterface
 {
@@ -27,7 +27,6 @@ class AuthRepository implements AuthRepositoryInterface
      */
     public function register($request)
     {
-        $validated = $request->validated();
         return $this->model->create([
             'name' => $request->get('name'),
             'password' => bcrypt($request->get('password')),
@@ -41,16 +40,16 @@ class AuthRepository implements AuthRepositoryInterface
      */
     public function login($request)
     {
-        $userInfo = $request->only('email', 'password');
         $token = null;
-        if(JWTAuth::attempt($userInfo) == false) // if the response doesn't have token send error msg
+        // if the response doesn't have token send error msg
+        if(JWTAuth::attempt($request->only('email', 'password')) == false) 
         {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Email or Password',
-            ], Response::HTTP_UNAUTHORIZED);
+            ],401);
         }else{
-            $token = JWTAuth::attempt($userInfo);
+            $token = JWTAuth::attempt($request->only('email', 'password'));
             return response()->json([
                 'success' => true,
                 'token' => $token,
@@ -62,31 +61,8 @@ class AuthRepository implements AuthRepositoryInterface
      * @return Collection
      * @param Request
      */
-    public function getUser($request)
+    public function logout()
     {
-        $user = JWTAuth::authenticate($request->token);
- 
-        return response()->json(['user' => $user]);
-    }
-
-    /**
-     * @return Collection
-     * @param Request
-     */
-    public function logout($request)
-    {
-        try {
-            JWTAuth::invalidate($request->token);
- 
-            return response()->json([
-                'success' => true,
-                'message' => 'User logged out successfully'
-            ]);
-        } catch (JWTException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Sorry, the user cannot be logged out'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        return Auth::guard()->logout();
     }
 }

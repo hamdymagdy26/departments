@@ -4,13 +4,9 @@ namespace App\Services\Departments;
 
 use App\Repositories\Departments\DepartmentRepositoryInterface;
 use App\Services\Departments\DepartmentServiceInterface;
-use App\Traits\General\ResponseHandler\ResponseHandler;
-use Illuminate\Support\Collection;
 
 class DepartmentService implements DepartmentServiceInterface
 {
-    use ResponseHandler;
-
     /** @var DepartmentServiceInterface */
     private $departmentServiceInterface;
 

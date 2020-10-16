@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Services\Auth\AuthServiceInterface;
-use App\Services\Auth\AuthService;
 use App\Http\Controllers\Controller;
 use App\Traits\General\ResponseHandler\ResponseHandler;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthRegisterRequest;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
@@ -28,7 +27,7 @@ class AuthController extends Controller
 
     /**
      * @return JsonResponse
-     * @param Request
+     * @param AuthRegisterRequest
      */
     public function register(AuthRegisterRequest $authRegisterRequest)
     {
@@ -38,8 +37,9 @@ class AuthController extends Controller
 
     /**
      * @return JsonResponse
+     * @param LoginRequest
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $data = $this->authServiceInterface->login($request);
         return $this->successResponse([$data], 200);
@@ -47,21 +47,10 @@ class AuthController extends Controller
 
     /**
      * @return JsonResponse
-     * @param Request
      */
-    public function getUser(Request $request)
+    public function logout()
     {
-        $data = $this->authServiceInterface->getUser($request);
-        return $this->successResponse([$data], 200);
-    }
-
-    /**
-     * @return JsonResponse
-     * @param Request
-     */
-    public function logout(Request $request)
-    {
-        $data = $this->authServiceInterface->logout($request);
+        $data = $this->authServiceInterface->logout();
         return $this->successResponse([$data], 200);
     }
 }

@@ -25,12 +25,12 @@ class DepartmentRepository implements DepartmentRepositoryInterface
      */
     public function index()
     {
-        return $this->model->all();
+        return $this->model->with('user')->get();
     }
 
     /**
-     * @return Collection
-     * @param $request
+     * @return Department
+     * @param Rrequest
      */
     public function store($request)
     {
@@ -41,25 +41,34 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         ]);
     }
 
+    /**
+     * @return Department
+     * @param Department
+     */
     public function show($department)
     {
-        return $department;
-        // return $department->with('user')->first();
+        return Department::where('id', $department)->with('user')->first();
     }
 
+    /**
+     * @param Request 
+     * @param $department 
+     */
     public function update($request, $department)
     {
-        $department->update([
+        return $department = Department::where('id',$department)->update([
             'name' => $request->get('name'),
             'desc' => $request->get('description')
         ]);
-        return $department;
     }
 
+    /**
+     * @return Boolean
+     * @param $department
+     */
     public function delete($department)
     {
-        $department->delete();
-        return $department;
+        return Department::where('id', $department)->delete();
     }
 
 }

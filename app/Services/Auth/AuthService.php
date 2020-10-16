@@ -4,12 +4,9 @@ namespace App\Services\Auth;
 
 use App\Repositories\Auth\AuthRepositoryInterface;
 use App\Services\Auth\AuthServiceInterface;
-use App\Traits\General\ResponseHandler\ResponseHandler;
-use Illuminate\Support\Collection;
 
 class AuthService implements AuthServiceInterface
 {
-    use ResponseHandler;
 
     /** @var DepartmentServiceInterface */
     private $authRepositoryInterface;
@@ -26,16 +23,11 @@ class AuthService implements AuthServiceInterface
 
     public function login($request)
     {
-        return $this->authRepositoryInterface->login($request);
+        return $result = $this->authRepositoryInterface->login($request);
     }
 
-    public function getUser($request)
+    public function logout()
     {
-        return $this->authRepositoryInterface->getUser($request);
-    }
-
-    public function logout($request)
-    {
-        return $this->authRepositoryInterface->logout($request);
+        return $this->authRepositoryInterface->logout();
     }
 }

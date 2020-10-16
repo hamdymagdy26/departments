@@ -10,8 +10,6 @@ interface AuthRepositoryInterface
 
     public function login($request);
 
-    public function getUser($request);
-
-    public function logout($request);
+    public function logout();
 
 }

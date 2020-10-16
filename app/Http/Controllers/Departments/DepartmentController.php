@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Departments;
 
 use App\Services\Departments\DepartmentServiceInterface;
-use App\Services\Departments\DepartmentService;
 use App\Http\Controllers\Controller;
 use App\Traits\General\ResponseHandler\ResponseHandler;
 use Illuminate\Http\JsonResponse;
@@ -59,7 +58,7 @@ class DepartmentController extends Controller
      * @return JsonResponse
      * @param Request | $department
      */
-    public function update(Request $request, $department)
+    public function update(StoreDepartmentRequest $request, $department)
     {
     	$data = $this->departmentServiceInterface->update($request, $department);
         return $this->successResponse([$data], 200);
