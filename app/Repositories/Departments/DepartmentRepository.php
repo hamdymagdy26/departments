@@ -47,6 +47,14 @@ class DepartmentRepository implements DepartmentRepositoryInterface
      */
     public function show($department)
     {
+        $department_info = Department::where('id', $department)->first();
+        if($department_info == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'There is no record with this id '.$department,
+            ],404);
+
+        }
         return Department::where('id', $department)->with('user')->first();
     }
 
@@ -56,7 +64,15 @@ class DepartmentRepository implements DepartmentRepositoryInterface
      */
     public function update($request, $department)
     {
-        return $department = Department::where('id',$department)->update([
+        $department_info = Department::where('id', $department)->first();
+        if($department_info == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'There is no record with this id '.$department,
+            ],404);
+
+        }
+        return $department_info->update([
             'name' => $request->get('name'),
             'desc' => $request->get('description')
         ]);
@@ -68,7 +84,15 @@ class DepartmentRepository implements DepartmentRepositoryInterface
      */
     public function delete($department)
     {
-        return Department::where('id', $department)->delete();
+        $department_info = Department::where('id', $department)->first();
+        if($department_info == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'There is no record with id '.$department,
+            ],404);
+
+        }
+        return $department_info->delete();
     }
 
 }
