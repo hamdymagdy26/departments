@@ -15,7 +15,7 @@
 - run php artisan jwt:secret
 - run php artisan serve.
 - you can now start testing the APIs via postman by importing the below collection link -
-https://www.getpostman.com/collections/47b28de6af6a2fc598ed
+https://www.getpostman.com/collections/ba081e5f1f4ef43ac9e6
 
 ## Testing APIs
 
