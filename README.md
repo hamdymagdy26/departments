@@ -7,7 +7,7 @@
 
 ## Setup the application locally 
 
-- git clone the branch master.
+- git clone the master branch.
 - after finishing clone process, create .env file with database credentials of yours.
 - run composer install.
 - run php artisan migrate
@@ -19,9 +19,9 @@ https://www.getpostman.com/collections/47b28de6af6a2fc598ed
 
 ## Testing APIs
 
-- first of all, make sure that your postman header has (Content-Type and Accept) parameter and both of them should have (application/json)
+- first of all, make sure that your postman header has (Content-Type and Accept) parameters and both of them should have (application/json) value.
 - use the Register User to create a new user.
 - use the email and password of the user created to login.
-- by login, you will have token, kindly use this token as a Bearer token in all upcoming requests by adding it to the Authorization tab inside (Bearer Token) of each request.
+- by login, you will have a generated token, kindly use this token as a Bearer token into all the upcoming requests by adding it into the Authorization tab inside (Bearer Token) of each request.
 
 
