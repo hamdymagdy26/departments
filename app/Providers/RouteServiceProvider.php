@@ -31,10 +31,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
-        // Route::model('department', Department::class);
+        Route::model('department', Department::class, function($e){
+            throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
+        });
     }
 
     /**

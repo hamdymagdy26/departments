@@ -27,6 +27,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('departments', 'Departments\DepartmentController@index');
     Route::get('departments/{department}', 'Departments\DepartmentController@show');
     Route::post('departments', 'Departments\DepartmentController@store');
-    Route::post('departments/{department}', 'Departments\DepartmentController@update');
+    Route::put('departments/{department}', 'Departments\DepartmentController@update');
     Route::delete('departments/{department}', 'Departments\DepartmentController@delete');
 });
